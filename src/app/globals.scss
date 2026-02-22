@@ -1,0 +1,18 @@
+:root {
+    --color-bg: #dcefd1;
+    --color-primary: #f4d35e;
+    --color-secondary: #ee964b;
+    --color-text: #2f3e46;
+    --color-highlight: #f7e9c4;
+    --color-honey-bg: #fefbf3;
+    --font-base: 'Inter', sans-serif;
+  }
+  
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-base);
+    margin: 0;
+    padding: 0;
+  }
+  

@@ -1,0 +1,116 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  width: 100%;
+
+  .inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+  }
+
+  .logo {
+    color: var(--color-text);
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .links {
+    display: flex;
+
+    @media (max-width: 700px) {
+      display: none;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--color-text);
+      font-weight: 500;
+      padding: 0 10px;
+
+      &:hover {
+        color: var(--color-secondary);
+      }
+    }
+  }
+
+  .burger {
+    cursor: pointer;
+    color: var(--color-text);
+
+    @media (min-width: 700px) {
+      display: none;
+    }
+  }
+
+  .drawer {
+    position: fixed;
+    top: 0;
+    right: -280px;
+    width: 280px;
+    height: 100vh;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.3s ease;
+    z-index: 150;
+  }
+
+  .drawerOpen {
+    right: 0;
+  }
+
+  .drawerHeader {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .drawerNav {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .drawerLink {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--color-secondary);
+    }
+  }
+
+  .drawerCloseBtn {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    &:hover {
+      color: var(--color-secondary);
+    }
+  }  
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 140;
+  }
+}

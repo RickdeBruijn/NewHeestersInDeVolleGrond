@@ -1,0 +1,6 @@
+.responsiveContainer {
+  width: 100%;
+  max-width: clamp(320px, 90vw, 1200px);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 3vw, 2.5rem);
+}
