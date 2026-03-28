@@ -14,23 +14,30 @@
   box-sizing: border-box;
 }
 
+/* TABLE CONTAINER */
 .tableScrollArea {
   width: 100%;
-  overflow-x: auto;
+  overflow-x: auto; 
   box-sizing: border-box;
 
   table {
-    min-width: 100%;
+    width: 100%;
+    table-layout: fixed;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     border-collapse: separate;
     border-spacing: 0;
 
-    th, td {
-      padding: 12px 16px;
+    th,
+    td {
+      padding: 10px 8px;
       border-bottom: 1px solid #ddd;
       color: var(--color-text);
+      white-space: normal;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      text-align: center;
     }
 
     thead th {
@@ -40,12 +47,63 @@
     }
 
     tbody tr:hover {
-      background-color: rgba(0,0,0,0.04);
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    /* Column widths */
+    th:nth-child(1),
+    td:nth-child(1) {
+      width: auto; /* product flexible */
+      text-align: left;
+    }
+
+    th:nth-child(2),
+    td:nth-child(2) {
+      width: 110px; /* Planthoogte */
+    }
+
+    th:nth-child(3),
+    td:nth-child(3) {
+      width: 90px; /* Aantal */
+    }
+
+    th:nth-child(4),
+    td:nth-child(4) {
+      width: 180px; /* Bestelling column for desktop QuantityInput */
+      min-width: 180px;
     }
   }
 }
 
-/* Hide/show containers based on screen size */
+/* Mobile adjustments */
+@media (max-width: $bp-xs) {
+  .tableScrollArea {
+    table {
+      th,
+      td {
+        padding: 8px 6px;
+        font-size: 14px;
+      }
+
+      th:nth-child(2),
+      td:nth-child(2) {
+        width: 90px;
+      }
+
+      th:nth-child(3),
+      td:nth-child(3) {
+        width: 70px;
+      }
+
+      th:nth-child(4),
+      td:nth-child(4) {
+        width: 80px; /* compact for mobile input */
+        min-width: 80px;
+      }
+    }
+  }
+}
+
 .desktopContainer {
   display: block;
 

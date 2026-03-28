@@ -3,6 +3,7 @@
 import { Group, Stack, Text } from '@mantine/core';
 import { Image } from '@mantine/core';
 import styles from './footer.module.scss';
+import planetproof from "../../assets/SGS12016_diap.png"
 
 export default function Footer() {
   return (
@@ -15,7 +16,7 @@ export default function Footer() {
         </Stack>
 
         <Image
-          src="/img/SGS12016_diap.png"
+          src={planetproof}
           alt="PlanetProof logo"
           w={80}
           h={80}

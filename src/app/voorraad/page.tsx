@@ -1,31 +1,71 @@
-// src/pages/VoorraadLijst.tsx
 import { useState, useEffect, Suspense } from 'react';
 import {
   Table,
   ScrollArea,
-  NumberInput,
   Button,
   Flex,
   TextInput,
   Container,
+  useMantineTheme,
 } from '@mantine/core';
-import { excelResource, type TableRow } from '../../utils/excelResource';
+import Fuse from 'fuse.js';
 import styles from './page.module.scss';
+import { useMediaQuery } from '@mantine/hooks';
+import QuantityInput from '../../components/quantityInput/quantityinput';
+
+export type TableRow = {
+  Product: string;
+  Planthoogte: string;
+  Aantal: string | number;
+  UserAantal: number;
+};
 
 function VoorraadLijstContent() {
-  const { tableData, header, fuse } = excelResource.read();
-  const [filteredData, setFilteredData] = useState<TableRow[]>(tableData);
+  const [tableData, setTableData] = useState<TableRow[]>([]);
+  const [filteredData, setFilteredData] = useState<TableRow[]>([]);
+  const [fuse, setFuse] = useState<Fuse<TableRow> | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedTerm, setDebouncedTerm] = useState('');
 
+  const theme = useMantineTheme();
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+
+  // Fetch data from PHP endpoint
+  useEffect(() => {
+    fetch(`${import.meta.env.BASE_URL}scripts/getVoorraadlijst.php`)
+      .then((res) => res.json())
+      .then((res) => {
+        if (Array.isArray(res)) {
+          // Map rows to TableRow and set initial table and filtered data
+          const rows: TableRow[] = res.map((r: any) => ({
+            Product: r.Product ?? '',
+            Planthoogte: r.Planthoogte ?? '',
+            Aantal: r.Aantal ?? 0,
+            UserAantal: 0,
+          }));
+
+          setTableData(rows);
+          setFilteredData(rows);
+
+          // Setup Fuse.js for search
+          setFuse(new Fuse(rows, { keys: ['Product', 'Planthoogte'] }));
+        }
+      })
+      .catch((err) => {
+        console.error('Error fetching voorraadlijst:', err);
+      });
+  }, []);
+
   // Debounce the search term
   useEffect(() => {
-    const handler = setTimeout(() => setDebouncedTerm(searchTerm), 200); // 200ms debounce
+    const handler = setTimeout(() => setDebouncedTerm(searchTerm), 200);
     return () => clearTimeout(handler);
   }, [searchTerm]);
 
-  // Apply search filter when debounced term changes
+  // Apply search filter
   useEffect(() => {
+    if (!fuse) return;
+
     if (!debouncedTerm.trim()) {
       setFilteredData(tableData);
       return;
@@ -42,26 +82,27 @@ function VoorraadLijstContent() {
     );
   };
 
-  // Send email
+  // Send email (placeholder for now)
   const sendEmail = async () => {
-    const selectedOrders = filteredData.filter((item) => item.UserAantal! > 0);
-    if (selectedOrders.length === 0) return alert('Geen producten geselecteerd!');
+    alert("WIP needs to be implemented");
+    // const selectedOrders = filteredData.filter((item) => item.UserAantal! > 0);
+    // if (selectedOrders.length === 0) return alert('Geen producten geselecteerd!');
 
-    try {
-      const response = await fetch('/send_mail.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ orders: selectedOrders }),
-      });
+    // try {
+    //   const response = await fetch('/send_mail.php', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ orders: selectedOrders }),
+    //   });
 
-      const result = await response.json();
+    //   const result = await response.json();
 
-      if (response.ok) alert('Bestelling succesvol verzonden!');
-      else alert(`Fout bij verzenden: ${result.message}`);
-    } catch (error) {
-      console.error(error);
-      alert('Fout bij het verzenden van de bestelling');
-    }
+    //   if (response.ok) alert('Bestelling succesvol verzonden!');
+    //   else alert(`Fout bij verzenden: ${result.message}`);
+    // } catch (error) {
+    //   console.error(error);
+    //   alert('Fout bij het verzenden van de bestelling');
+    // }
   };
 
   // Render table rows
@@ -72,14 +113,27 @@ function VoorraadLijstContent() {
           <Table.Td>{item.Product}</Table.Td>
           <Table.Td>{item.Planthoogte}</Table.Td>
           <Table.Td>{item.Aantal}</Table.Td>
-          <Table.Td w={80}>
-            <NumberInput
-              w={80}
-              allowDecimal={false}
-              min={0}
-              value={item.UserAantal}
-              onChange={(value) => handleInputChange(index, Number(value))}
-            />
+          <Table.Td w={isMobile ? 100 : 180}>
+            {isMobile ? (
+              <input
+                style={{ width: "100%", textAlign: "center", fontSize: 16 }}
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                value={item.UserAantal === 0 ? "" : item.UserAantal}
+                onChange={(e) => {
+                  const val = e.target.value.replace(/\D/g, "");
+                  handleInputChange(index, Number(val || 0));
+                }}
+                placeholder="0"
+                autoComplete="off" 
+              />
+            ) : (
+              <QuantityInput
+                value={item.UserAantal}
+                onChange={(val) => handleInputChange(index, val)}
+              />
+            )}
           </Table.Td>
         </Table.Tr>
       ))
@@ -106,9 +160,9 @@ function VoorraadLijstContent() {
             <Table highlightOnHover withColumnBorders>
               <Table.Thead>
                 <Table.Tr>
-                  <Table.Th>{header[1]}</Table.Th>
-                  <Table.Th>{header[2]}</Table.Th>
-                  <Table.Th>{header[0]}</Table.Th>
+                  <Table.Th>Product</Table.Th>
+                  <Table.Th>Planthoogte</Table.Th>
+                  <Table.Th>Aantal</Table.Th>
                   <Table.Th>Bestelling</Table.Th>
                 </Table.Tr>
               </Table.Thead>
@@ -139,9 +193,9 @@ function VoorraadLijstContent() {
             <Table highlightOnHover withColumnBorders>
               <Table.Thead>
                 <Table.Tr>
-                  <Table.Th>{header[1]}</Table.Th>
-                  <Table.Th>{header[2]}</Table.Th>
-                  <Table.Th>{header[0]}</Table.Th>
+                  <Table.Th>Product</Table.Th>
+                  <Table.Th>Planthoogte</Table.Th>
+                  <Table.Th>Aantal</Table.Th>
                   <Table.Th>Bestelling</Table.Th>
                 </Table.Tr>
               </Table.Thead>

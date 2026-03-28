@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import path from 'path'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
@@ -12,8 +12,13 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@/styles/variables" as *;`
+        additionalData: `@use "@/styles/variables" as *;`,
       },
     },
   },
-})
+  base: '/new/',
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+  },
+});

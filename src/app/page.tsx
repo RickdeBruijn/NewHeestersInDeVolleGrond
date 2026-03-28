@@ -1,6 +1,10 @@
 import { Image, Container, Stack } from '@mantine/core';
 import styles from './page.module.scss';
 import ImageTextCard from '../components/imageWithText/ImageWithText';
+import heroImage from '../assets/Linkedin-cover-big.jpg';
+import bloemenImage from '../assets/20210611_161239.webp';
+import potenImage from '../assets/poten.webp';
+
 
 export default function HomePage() {
   return (
@@ -8,7 +12,7 @@ export default function HomePage() {
       <section className={styles.hero}>
         <div className={styles.imageWrapper}>
           <Image
-            src="/img/Linkedin-cover-big.jpg"
+            src={heroImage}
             alt="Boomkwekerij William de Bruijn"
             w="100%"
             className={styles.heroImage}
@@ -41,14 +45,14 @@ export default function HomePage() {
       <Container size='responsive'>
         <Stack className={styles.contentContainer}>
           <ImageTextCard
-            imageSrc="/img/20210611_161239.webp"
+            imageSrc={bloemenImage}
             alt="Bloemen"
             title="Bloemen"
             description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae faucibus massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
           />
 
           <ImageTextCard
-            imageSrc="/img/poten.webp"
+            imageSrc={potenImage}
             alt="Poten"
             title="Poten"
             description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae faucibus massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
