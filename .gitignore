@@ -13,8 +13,8 @@ dist-ssr
 *.local
 src/assets
 
-# Ignore all private data, but not .htaccess
-/private_data/*
+# Ignore all private data but not .htaccess
+/private_data/**
 !/private_data/.htaccess
 
 # Editor directories and files
