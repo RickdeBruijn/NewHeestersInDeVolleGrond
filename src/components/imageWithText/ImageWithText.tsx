@@ -4,7 +4,7 @@ interface ImageTextCardProps {
   imageSrc: string;
   alt?: string;
   title: string;
-  description: string;
+  description: any;
   imageRight?: boolean;
 }
 

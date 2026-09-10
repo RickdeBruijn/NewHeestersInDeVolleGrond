@@ -1,36 +1,57 @@
 .hero {
-  height: calc(100dvh - $header-height);
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .imageWrapper {
-  flex: 0 0 auto;
   width: 100%;
+  overflow: hidden;
 }
 
 .heroImage {
   display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 .mainContainer {
+  width: 100%;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center; 
+  justify-content: center;
+
+  padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 4vw, 2rem);
+
+  h2 {
+    margin: 0 0 clamp(1rem, 2vw, 1.5rem);
+    line-height: 1.15;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+  }
+
+  p {
+    margin: 0;
+    max-width: 75ch;
+    line-height: 1.6;
+    font-size: clamp(1rem, 1.4vw, 1.35rem);
+  }
+}
+
+.contentContainer {
+  width: 100%;
+  gap: clamp(2rem, 5vw, 5rem);
+  padding-top: clamp(1rem, 2vw, 2rem);
+  padding-bottom: clamp(2rem, 5vw, 5rem);
 }
 
 .line {
   display: inline-block;
 }
 
-.contentContainer {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
 .vollegrond {
-  margin: 0 0 1rem 0;
+  margin: 0 0 1rem;
   padding-bottom: 1rem;
   line-height: 1.1;
   font-size: clamp(1.8rem, 3.5vw, 3.2rem);
@@ -40,4 +61,59 @@
   margin: 0;
   line-height: 1.6;
   font-size: clamp(1rem, 1.2vw, 1.25rem);
+}
+
+/* Tablets and smaller laptops */
+@media (max-width: 768px) {
+  .hero {
+    padding-bottom: 1rem;
+  }
+
+  .contentContainer {
+    gap: 2.5rem;
+    padding-top: 1rem;
+  }
+}
+
+.pageContainer {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: clamp(1rem, 4vw, 2rem);
+  padding-right: clamp(1rem, 4vw, 2rem);
+}
+
+.specialismsList {
+  margin: 0;
+  padding-left: 1.25rem;
+
+  li {
+    padding: 0.6rem 0;
+    line-height: 1.55;
+  }
+}
+
+
+/* Phones */
+@media (max-width: 480px) {
+  .mainContainer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1.5rem;
+
+    h2 {
+      font-size: clamp(1.6rem, 8vw, 2rem);
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+  }
+
+  .contentContainer {
+    gap: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 2.5rem;
+  }
 }

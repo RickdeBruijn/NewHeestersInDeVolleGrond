@@ -20,42 +20,49 @@ export default function HomePage() {
         </div>
 
         <Container size='responsive' className={styles.mainContainer}>
-          <h2 className={styles.vollegrond}>
-            <span className={styles.line}>Volle grond...&nbsp;</span>
-            <span className={styles.line}>ja natuurlijk!</span>
-          </h2>
-
-          <p className={styles.maintext}>
-            Boomkwekerij William de Bruijn is een sierheesterkwekerij in Boskoop.
-            Wij kweken een breed sortiment heesters in de volle grond. Wij stekken
-            en enten ons eigen uitgangsmateriaal wat we opkweken in de volle grond.
-            Met ons sortiment richten we ons op kwekerijen die onze planten
-            doorkweken in pot of volle grond en op vakbeplanting als in openbaar
-            groen (plantsoenen, bedrijfsterreinen), aanleg tuinen en parken door
-            hoveniers. Doordat we kweken in de volle grond zijn wij ook zeer
-            afhankelijk van de bodem. Met de bodem en het bodemleven moet goed
-            omgegaan worden, om die reden zijn wij terughoudend met inzetten van
-            kunstmest en bestrijdingsmiddelen maar kiezen wij voor een natuurlijke
-            manier om ziekten en plagen te voorkomen en zo duurzame planten te
-            kweken.
+          <h2>Welkom bij Boomkwekerij William de Bruijn</h2>
+          <p>
+            Sterke vollegrond planten met oog voor natuur, klimaat en milieu
+            Wilt u plantmateriaal dat écht aanslaat en krachtig doorgroeit? Dan kiest u voor de kracht van de volle grond. Als broers en rasechte kwekers delen wij, William en Barrie de Bruijn, een duidelijke passie: op onze Boskoopse sierheesterkwekerij kweken wij kerngezonde, weerbare planten. Wij leveren aan professionals die de superieure kwaliteit van vollegronds planten kennen en eisen.
           </p>
         </Container>
       </section>
 
-      <Container size='responsive'>
+      <Container size="responsive" className={styles.pageContainer}>
         <Stack className={styles.contentContainer}>
           <ImageTextCard
             imageSrc={bloemenImage}
-            alt="Bloemen"
-            title="Bloemen"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae faucibus massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
+            alt="Onze specialismen"
+            title="Onze specialismen:"
+            description=
+            {
+              <ul className={styles.specialismsList}>
+                <li>
+                  Trots op PlanetProof gecertificeerde planten. Wij zijn enorm trots dat
+                  onze planten het certificaat On the way to PlanetProof dragen...
+                </li>
+
+                <li>
+                  Beplanting voor openbaar groen, plantsoenen, tuinen en parken...
+                </li>
+
+                <li>
+                  Doorkweekmateriaal voor volle grond & potten...
+                </li>
+              </ul>
+            }
           />
 
           <ImageTextCard
             imageSrc={potenImage}
-            alt="Poten"
-            title="Poten"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae faucibus massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas."
+            alt="Vakmanschap door de broers de Bruijn"
+            title="Vakmanschap door de broers de Bruijn"
+            description=
+            {
+              <p>
+                Samen staan wij garant voor gezonde planten, korte lijnen en betrouwbare leveringen. Wij begrijpen wat een kweker of groenvoorziener nodig heeft om succesvol te zijn. Zoekt u de hoogste kwaliteit vollegrond planten met een minimale impact op onze planeet? Dan bent u bij ons aan het juiste adres.
+              </p>
+            }
             imageRight
           />
         </Stack>
